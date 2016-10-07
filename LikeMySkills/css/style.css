@@ -1,3 +1,11 @@
+html, body {
+	margin: 0 auto;
+}
+
+body {
+	background-color: #fafafa;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Open Sans', sans-serif;
 }
@@ -16,11 +24,33 @@ a:hover {
 	color: #000;
 }
 
+header {
+	height: 100px;
+	background-color: #fff;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+.container {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+nav {
+	margin: 0 auto;
+	text-align: center;
+}
+
+ul {
+	margin: 0;
+	list-style-type: none;
+}
+
 nav li {
+	display: inline-block;
+	padding: 35px;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 16px;
 	text-transform: uppercase;
-	line-height: 190%;
 }
 
 nav li a {

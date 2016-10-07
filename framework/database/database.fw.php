@@ -5,17 +5,17 @@
 	class Database {
 		
 		// Database info
-		$host;
-		$port;
-		$username;
-		$password;
+		protected $host;
+		protected $port;
+		protected $username;
+		protected $password;
 		
-		$database;
+		protected $database;
 		
 		// Connection
-		$mysqli;
+		protected $mysqli;
 		
-		__construct($connection) {
+		function __construct($connection) {
 			// Get information from settings
 			$this->host 	= $connection["host"] 		?: "localhost";
 			$this->port 	= $connection["port"] 		?: 21;
@@ -30,7 +30,7 @@
 			// If error, stop and display
 			if($this->mysqli->connect_errno) {
 				if($_settings["debug"]) 
-					die $this->mysqli->connect_error;
+					die ($this->mysqli->connect_error);
 				
 				else return $_ERROR['connection'];
 			}

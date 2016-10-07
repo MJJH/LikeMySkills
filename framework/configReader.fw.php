@@ -3,9 +3,8 @@
 */
 
 function read($path, $config = array()) {
-	
 	// Open file
-	$file = file($url);
+	$file = file("../framework/" . $path);
 	
 	// Read all lines 
 	foreach($file as $line_num => $line) {

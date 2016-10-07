@@ -1,5 +1,5 @@
 <?php
-session_start;
+//session_start;
 
 // Include all framework files
 include 'configReader.fw.php';
@@ -7,9 +7,8 @@ include 'lang/language.fw.php';
 include 'database/database.fw.php';
 
 // Set globals
-global $_settings 	= read('settings.config');
-global $_string 	= read('lang/' . $lan . '.config');
-
+$_settings 	= read('settings.config');
+$_string 	= read('lang/' . $lan . '.config');
 
 // HTML features
 function javascripts() {
@@ -36,5 +35,12 @@ function media($path, $name, $description, $type) {
 
 function prepare($html, $data = array()) {
 	// Insert text %%
-	preg_replace('/%(.*)%/U', text(${1}), $html);
+	preg_match_all('/%(.*)%/U', $html, $output);
+	
+	if($output)
+		foreach($output[1] as $key) {
+			$html = preg_replace('/%'.$key.'%/iU', text($key, $data), $html);
+		}
+		
+	return $html;
 }

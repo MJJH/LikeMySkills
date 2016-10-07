@@ -4,8 +4,9 @@
 */
 	
 	// Get language cookie, default language or else English (en)
-	global $lan = $_COOKIE['lan'] ?: $_settings['deflan'] ?: "en";
+	//$lan = $_COOKIE['lan'] ?: $_settings['deflan'] ?: "en";
+	$lan = "en";
 	
-	function text($key) {
-		return $_string[$key] ?: "Undefined";
+	function text($key, $data = array()) {
+		return isset($data[$key]) ? $data[$key] : $key;
 	}

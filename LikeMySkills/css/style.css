@@ -1,7 +1,19 @@
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Open Sans', sans-serif;
+}
+
 p {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 15px;
 	line-height: 190%;
+}
+
+a {
+	color: #444;
+}
+
+a:hover {
+	color: #000;
 }
 
 nav li {
@@ -9,4 +21,14 @@ nav li {
 	font-size: 16px;
 	text-transform: uppercase;
 	line-height: 190%;
+}
+
+nav li a {
+	color: #000;
+	text-decoration: none;
+}
+
+nav li a:hover,
+nav li a:active {
+	color: #444;
 }

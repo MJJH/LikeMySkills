@@ -26,6 +26,7 @@ a:hover {
 
 header {
 	height: 100px;
+	padding: 0 100px;
 	background-color: #fff;
 	border-bottom: 1px solid #dbdbdb;
 }
@@ -68,14 +69,11 @@ nav li a:active {
 
 footer {
 	height: 90px;
-	padding: 0 100px;
 	background-color: #fff;
-	text-align: center;
 	border-top: 1px solid #dbdbdb;
 	border-bottom: 1px solid #dbdbdb;
 }
 
 footer p {
-	padding: 20px;
-	font-size: 13px;
+	padding: 20px 100px;
 }

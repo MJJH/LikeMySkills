@@ -1,6 +1,8 @@
 </content>
 	<footer>
-		<p>&copy; 2016 LikeMySkills | All Rights Reserved</p>
+		<div class="footer-container">
+			<p>&copy; 2016 LikeMySkills</p>
+		</div>
 	</footer>
 </body>
 </html>

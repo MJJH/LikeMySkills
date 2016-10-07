@@ -11,6 +11,7 @@
 		<nav>
 			<ul>
 				<li>Home</li>
+				<li>Mijn account</li>
 			</ul>
 		</nav>
 	</header>

@@ -55,6 +55,7 @@ nav li {
 }
 
 nav li a {
+	padding: 5px 0;
 	color: #000;
 	text-decoration: none;
 }
@@ -62,6 +63,7 @@ nav li a {
 nav li a:hover,
 nav li a:active {
 	color: #444;
+	border-bottom: 1px solid #444;
 }
 
 footer {

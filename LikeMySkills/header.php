@@ -11,7 +11,8 @@
 		<nav>
 			<ul>
 				<li><a href="index.php">Home</a></li>
-				<li><a href="#">Account</a></li>
+				<li><a href="#">Preferences</a></li>
+				<li><a href="#">Login</a></li>
 			</ul>
 		</nav>
 	</header>

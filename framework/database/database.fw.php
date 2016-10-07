@@ -17,12 +17,12 @@
 		
 		__construct($connection) {
 			// Get information from settings
-			$this->host 	= $connection["host"] 		|| "localhost";
-			$this->port 	= $connection["port"] 		|| 21;
-			$this->username = $connection["username"] 	|| "root";
-			$this->password = $connection["password"] 	|| "";
+			$this->host 	= $connection["host"] 		?: "localhost";
+			$this->port 	= $connection["port"] 		?: 21;
+			$this->username = $connection["username"] 	?: "root";
+			$this->password = $connection["password"] 	?: "";
 			
-			$this->database = $connection["database"]	|| "database";
+			$this->database = $connection["database"]	?: "database";
 			
 			// Connect
 			$this->mysqli = mysqli_connect($this->host, $this->username, $this->password, $this->database, $this->port);

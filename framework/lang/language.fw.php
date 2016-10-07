@@ -3,25 +3,9 @@
 	Translate all texts on the webpage
 */
 	
-
-	// Get language cookie
-	
-	// See if lang conf exists
-	// Else take default lang from settings.conf
-	// Else take EN
-	$lan = "EN";
-	
-	// Set array
-	$_string = array();
-	
-	// Fill with contents
-	// For each line in .config
-	// See if start with # for comment
-	// Add key and value to array
-	// $_string[$key] = $value;
+	// Get language cookie, default language or else English (en)
+	global $lan = $_COOKIE['lan'] ?: $_settings['deflan'] ?: "en";
 	
 	function text($key) {
-		// If exists
-		// return $_string[$key];
-		// Else return 'UNDEFINED'
+		return $_string[$key] ?: "Undefined";
 	}

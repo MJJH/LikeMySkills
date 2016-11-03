@@ -16,6 +16,7 @@
 	}
 	
 	
-	function text($key, $data = array()) {
-		return isset($data[$key]) ? $data[$key] : $key;
+	function text($key) {
+		global $_prep;
+		return isset($data[$key]) ? $_prep[$key] : $key;
 	}

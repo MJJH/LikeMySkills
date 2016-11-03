@@ -13,14 +13,14 @@ function read($path, $config = array()) {
 			continue;
 		
 		// Read config items key=value
-		$config_line = preg_split("/\s*=\s*/", $line);
+		$config_line = preg_split("/\s* *= *\s*/", $line);
 		
 		// If not a valid item, skip
 		if(count($config_line) !== 2) 
 			continue;
 		
 		// Add item to return value
-		$config[$config_line[0]] = $config_line[1];
+		$config[rtrim($config_line[0])] = rtrim($config_line[1]);
 	}
 	
 	return $config;

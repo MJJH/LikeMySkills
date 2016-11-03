@@ -15,17 +15,17 @@
 		// Connection
 		protected $mysqli;
 		
-		function __construct($connection) {
+		function __construct() {
+			global $_settings;
 			// Get information from settings
-			$this->host 	= $connection["host"] 		?: "localhost";
-			$this->port 	= $connection["port"] 		?: 21;
-			$this->username = $connection["username"] 	?: "root";
-			$this->password = $connection["password"] 	?: "";
+			$this->host 	= $_settings["dbHost"] 		?: "localhost";
+			$this->username = $_settings["dbUsername"] 	?: "root";
+			$this->password = $_settings["dbPassword"] 	?: "";
 			
-			$this->database = $connection["database"]	?: "database";
+			$this->database = $_settings["dbName"]		?: "database";
 			
 			// Connect
-			$this->mysqli = mysqli_connect($this->host, $this->username, $this->password, $this->database, $this->port);
+			$this->mysqli = mysqli_connect($this->host, $this->username, $this->password, $this->database);
 			
 			// If error, stop and display
 			if($this->mysqli->connect_errno) {
@@ -36,11 +36,11 @@
 			}
 			
 			// If tabels don't exist, reset
-			if($result = $this->mysqli->query("SHOW TABLES LIKE 'settings'")) {
+			/*if($result = $this->mysqli->query("SHOW TABLES LIKE 'settings'")) {
 				if($result->num_rows <= 0) {
 					$this->reset();
 				}
-			}
+			}*/
 		}
 		
 		/**
@@ -63,8 +63,32 @@
 			
 			Returns amount of rows changed
 		*/
-		function doQuery($key, $params) {
+		function doQuery($query, $types, $params) {
+			$affected = 0;
+
+			// Check if connection is open
+			if($this->mysqli->ping()) {
+				
+				// Prepare query
+				if($stmt = $this->mysqli->prepare($query)) {
+				
+					// Bind values
+					call_user_func_array(array($stmt, "bind_param"), array_merge(array(&$types), $params));
+					
+					$stmt->execute();
+					
+					if($stmt->affected_rows < 0) {
+						echo $stmt->error;
+					}
+					
+					$affected = $stmt->affected_rows;
+					
+					$stmt->close();
+				}
+				
+			}
 			
+			return $affected;
 		}
 		
 		/**
@@ -75,7 +99,7 @@
 			
 			Returns array object
 		*/
-		function getQuery($key, $params) {
+		function getQuery($query, $types, $params) {
 			
 		}
 	}

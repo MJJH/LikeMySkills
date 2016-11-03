@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="Database" namespace="" name="Database" abstract="false" final="false" start="5" end="105">
+  <file path="D:/xampp/htdocs/SportReport/LikeMySkills/framework/database" file="database.fw.php" realpath="D:/xampp/htdocs/SportReport/LikeMySkills/framework/database/database.fw.php" size="2257" time="2016-11-03T14:40:01+01:00" unixtime="1478180401" sha1="6806c1578d940765175965537aec395be39e21da" relative="database/database.fw.php"/>
+  <docblock>
+    <description compact="Database connection"/>
+  </docblock>
+  <member name="host" visibility="protected" line="8"/>
+  <member name="port" visibility="protected" line="9"/>
+  <member name="username" visibility="protected" line="10"/>
+  <member name="password" visibility="protected" line="11"/>
+  <member name="database" visibility="protected" line="13"/>
+  <member name="mysqli" visibility="protected" line="16"/>
+  <constructor name="__construct" start="18" end="44" abstract="false" final="false" static="false" visibility="public">
+    <inline>
+      <comment value="Get information from settings" line="20"/>
+      <comment value="Connect" line="27"/>
+      <comment value="If error, stop and display" line="30"/>
+    </inline>
+  </constructor>
+  <method name="reset" start="52" end="56" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Delete all tables and remake them using the create.sql &#9;&#9;&#9;- Only run if create.sql exists and is not empty">Returns true if database is reset</description>
+    </docblock>
+    <inline>
+      <comment value="Reset all tables from create.sql" line="53"/>
+    </inline>
+  </method>
+  <method name="doQuery" start="66" end="92" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Run a DO QUERY &#9;&#9;&#9;- INSERT, UPDATE, CREATE, DELETE, DROP">Query parameters will be escaped
+
+			Returns amount of rows changed</description>
+    </docblock>
+    <parameter name="query" byreference="false" type="{unknown}"/>
+    <parameter name="types" byreference="false" type="{unknown}"/>
+    <parameter name="params" byreference="false" type="{unknown}"/>
+    <inline>
+      <comment value="Check if connection is open" line="69"/>
+    </inline>
+  </method>
+  <method name="getQuery" start="102" end="104" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="Run a GET QUERY &#9;&#9;&#9;- SELECT">Query parameters will be escaped
+
+			Returns array object</description>
+    </docblock>
+    <parameter name="query" byreference="false" type="{unknown}"/>
+    <parameter name="types" byreference="false" type="{unknown}"/>
+    <parameter name="params" byreference="false" type="{unknown}"/>
+  </method>
+</class>

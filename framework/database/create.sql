@@ -1,8 +1,8 @@
 /*
 	DATABASE CREATE - likeMySkills FRAMEWORK
 */
-
-DROP TABLE IF EXISTS sr_content;
+drop table if exists sr_follow;
+drop table if exists sr_content;
 drop table if exists sr_user;
 drop table if exists sr_permission;
 
@@ -23,6 +23,8 @@ create table sr_user(
     password varchar(255),
     email varchar(255),
     role varchar(255) default 'user',
+	registered timestamp,
+	`status` varchar(30) default 'Inactive',
     
     constraint pk_sr_user
     primary key (userid),
@@ -48,4 +50,23 @@ CREATE TABLE sr_content(
     CONSTRAINT fk_sr_content_sr_user
     FOREIGN KEY (author)
     REFERENCES sr_user(userid)
+);
+
+create table sr_follow(
+	followid integer auto_increment,
+	userid integer not null,
+	authorid integer not null,
+	date timestamp,
+	following boolean,
+	
+	constraint pk_sr_follow
+	primary key (followid),
+	
+	constraint fk_sr_follow_userid
+	foreign key (userid)
+	references sr_user(userid),
+	
+	constraint fk_sr_follow_authorid
+	foreign key (authorid)
+	references sr_user(userid)
 );

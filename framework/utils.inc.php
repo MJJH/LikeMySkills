@@ -20,16 +20,9 @@ $_queries = read('database/queries.config');
 $_prep = read('lang/' . $lan . '.config');
 $_prep["lan"] = $lan;
 $_database = new Database();
+$_error = array();
 
 // HTML features
-function javascripts() {
-	
-}
-
-function stylesheets() {
-	
-}
-
 function bb($code, $text) {
 	global $_settings;
 	$allowed = explode(",", $_settings["allowedBB"]);

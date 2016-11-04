@@ -8,7 +8,9 @@
 	$_string["title"] = $page;
 	$path = "templates/";
 	if(isSet($_GET["page"]) && !empty($_GET["page"])) {
-		$page = $_GET["page"];
+		if(file_exists()) {
+			$page = $_GET["page"];
+		}
 		// REGISTER
 		//User::register("username", "password", "email");
 		

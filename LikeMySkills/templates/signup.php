@@ -1,29 +1,20 @@
 <?php
 $emptyform = false;
 if (isset($_POST)){
-	if (isset($_POST["username"])){
-		if empty($_POST["username"]){
+	if (!isset($_POST["username"]) || empty($_POST["username"])){
 			$emptyform = true;
 			$_error[] = "%EmptyUsername%";
-		}
 	}
-	if (isset($_POST["password"])){
-		if empty($_POST["password"]){
+	if (!isset($_POST["password"]) || empty($_POST["password"])){
 			$emptyform = true;
 			$_error[] = "%EmptyPassword%";
-		}
 	}
-	if (isset($_POST["email"])){
-		if empty($_POST["email"]){
+	if (!isset($_POST["email"]) || empty($_POST["email"])){
 			$emptyform = true;
 			$_error[] = "%EmptyEmail%";
-		}
 	}
-	if (!$emptyform){
+	if ($emptyform = false){
 		User::register($_POST["username"],$_POST["password"],$_POST["email"]);
-	}
-	else{
-		print"Een van de velden is leeg";
 	}
 }
 ?>

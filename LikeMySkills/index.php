@@ -8,7 +8,7 @@
 	$_string["title"] = $page;
 	$path = "templates/";
 	if(isSet($_GET["page"]) && !empty($_GET["page"])) {
-		if(file_exists()) {
+		if(file_exists($path.$_GET["page"].".php")) {
 			$page = $_GET["page"];
 		}
 		// REGISTER

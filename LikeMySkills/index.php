@@ -7,17 +7,17 @@
 	$page = "index";
 	$_string["title"] = $page;
 	$path = "templates/";
-	if(!isSet($_GET["page"]) || isEmpty($_GET["page"])) {
-		// Get page
-		
+	if(isSet($_GET["page"]) && !empty($_GET["page"])) {
+		$page = $_GET["page"];
 		// REGISTER
 		//User::register("username", "password", "email");
 		
 		// Post content
-		$user = new User(16, 'username', 'email', 'user', array());
+		/*
+		$user = new User(1, 'username', 'email', 'user', array());
 		$post = new Content(-1, $user, "Test", "Test content!", "text");
-		$post->upload();
-	}
+		$post->upload();*/
+	} 
 
 	ob_start();
 	

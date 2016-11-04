@@ -59,7 +59,13 @@ function prepare($html) {
 	
 	if($output)
 		foreach($output[1] as $key) {
-			$html = preg_replace('/%'.$key.'%/iU', text($key), $html);
+			$html = preg_replace_callback(
+				'/%('.$key.')%/iU', 
+				function($m) { 
+					return text($m[1]); 
+				}, 
+				$html
+			);
 		}
 		
 	return $html;
@@ -74,7 +80,13 @@ function escape($content) {
 	
 	if($output)
 		foreach($output[1] as $key) {
-			$content = preg_replace("/\[".$key."\](.*)\[\/".$key."\]/iUe", 'bb("'. $key .'", "$1")', $content);
+			$content = preg_replace_callback(
+				"/\[(".$key.")\](.*)\[\/".$key."\]/iU", 
+				function($match) {
+					return bb($match[1], $match[2]); 
+				}, 
+				$content
+			);
 		}
 		
 	return $content;

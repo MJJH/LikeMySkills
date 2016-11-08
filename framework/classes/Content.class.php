@@ -9,17 +9,22 @@
 		- A sound file
 		- Text
 		- Link
+		
+	@todo Finish class documentation and functions
 */
 class Content {
-	// Id of the content, to identify in the database
+	/** * @var integer 		Identifier from database */
 	private $id;
 	
-	// Author of this piece of content, USER object
+	/** * @var User 		User that created this content */
 	private $author;
-	// Date when this content was uploaded
+	/** * @var Timestamp 	Timestamp of creation of this Content */
 	private $date;
 	
-	// The type
+	/** 
+	* The type of this content. [text, video, pictures or sound]
+	* @var string 
+	*/
 	private $type;
 	// The title
 	private $title;
@@ -27,11 +32,11 @@ class Content {
 	private $content;
 	
 	/**
-		Constructor for a content
-		@param id		identifier for content
-		@param author 	user object of uploader
-		@param content	content of this content
-		@param date		timestamp object when object was send
+		* Constructor for a content
+		* @param id		identifier for content
+		* @param author 	user object of uploader
+		* @param content	content of this content
+		* @param date		timestamp object when object was send
 	*/
 	public function __construct($id, $author, $title, $content, $type, $date = null) {
 		$this->id = $id;
@@ -58,6 +63,10 @@ class Content {
 		*
 		* @author Martijn
 		* @return string Gives an error if failed else nothing
+		*
+		* @example ../../../likemyskills/index.php 19 3 Upload some content
+		* @global array $_queries
+		* @global Database $_database
 	*/
 	public function upload() {
 		global $_queries;
@@ -75,11 +84,12 @@ class Content {
 	}
 	
 	/**
-		STATIC
-		Load a content by the id
-		@return Content return the found content object or false
+	* Load a content by the id
+	*
+	* @static
+	* @return Content return the found content object or false
 	*/
-	static public function loadContent($id) {
+	public static function loadContent($id) {
 		
 	}
 	

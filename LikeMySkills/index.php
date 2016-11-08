@@ -5,8 +5,8 @@
 	include '../framework/utils.inc.php';
 	// Get content
 	$page = "index";
-	$_string["title"] = $page;
 	$path = "templates/";
+	
 	if(isSet($_GET["page"]) && !empty($_GET["page"])) {
 		if(preg_match('/^[a-zA-Z0-9-]+$/', $_GET["page"]) && file_exists($path.$_GET["page"].".php")) {
 			$page = $_GET["page"];
@@ -28,9 +28,8 @@
 	include("footer.php");
 	
 	$webpage = ob_get_contents();
-	
+	//var_dump($_error);
 	ob_end_clean();
-	
 	// Prepare webpage to translate and place all texts
 	// Also place all content
 	echo prepare($webpage, $_prep);

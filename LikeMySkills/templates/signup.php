@@ -1,9 +1,9 @@
 <?php
 $emptyform = false;
-if (isset($_POST)){
+if (isset($_POST) && !empty($_POST)){
 	if (!isset($_POST["username"]) || empty($_POST["username"])){
 			$emptyform = true;
-			$_error[] = "%EmptyUsername%";
+			$GLOBALS["_error"][] = "%EmptyUsername%";
 	}
 	if (!isset($_POST["password"]) || empty($_POST["password"])){
 			$emptyform = true;

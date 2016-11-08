@@ -2,21 +2,31 @@
 /**
 	Translate all texts on the webpage
 */
-	
-	// Get language cookie, default language or else English (en)
-	//$lan = $_COOKIE['lan'] ?: $_settings['deflan'] ?: "en";
-	$lan = "nl";
-	
-	if(isSet($_GET['lan'])) {
-		$reqLan = $_GET['lan'];
+	function getLan() {
+		global $_settings;
 		
-		if(strlen($reqLan) == 2 && ctype_alpha($reqLan)) {
-			$lan = $reqLan;
+		$lan = $_settings["deflan"];
+		
+		if(isSet($_COOKIE['lan']) && !empty($_COOKIE['lan']) && lanExists($_COOKIE['lan'])) {
+			$lan = $_COOKIE['lan'];
 		}
+		
+		
+		if(isSet($_GET['lan']) && lanExists($_GET['lan'])) {
+			if(!isSet($_COOKIE['lan']) || $_COOKIE['lan'] !== $_GET['lan'])
+				setcookie("lan", $_GET['lan'], time() + (10 * 365 * 24 * 60 * 60));
+			
+			$lan = $_GET['lan'];
+		}
+	
+		return $lan;
 	}
 	
+	function lanExists($lan) {
+		return preg_match('/^[a-z]{2}$/', $lan) && file_exists(dirname(__FILE__) . "/" . $lan . '.config');
+	}
 	
 	function text($key) {
 		global $_prep;
-		return isset($data[$key]) ? $_prep[$key] : $key;
+		return isset($_prep[$key]) ? $_prep[$key] : $key;
 	}

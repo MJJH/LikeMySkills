@@ -95,26 +95,47 @@ class User {
 	
 	/**
 		Validate the username
-		@param username 	To validate username
+		@param string	username 	To validate username
+		@return boolean		True if valid username
 	*/
-	static private function validateUsername($username) {
-		return true;
+	static public function validateUsername($username) {
+		return preg_match("/^[a-zA-Z0-9._-]{4,30}$/", $username);
+	}
+	
+	/**
+		Check unique username
+		@param string 	username	check username
+		@return boolean		True if email is unique
+	*/
+	static public function uniqueUsername($username) {
+		
 	}
 	
 	/**
 		Validate the password
-		@param password 	To validate password
+		@param string	password 	To validate password
+		@return boolean		True if valid password
 	*/
-	static private function validatePassword($password) {
+	static public function validatePassword($password) {
 		return true;
 	}
 	
 	/**
 		Validate the email
-		@param email 		To validate email
+		@param string 	email 		To validate email
+		@return boolean		True if valid email
 	*/
-	static private function validateEmail($email) {
-		return true;
+	static public function validateEmail($email) {
+		return filter_var($email, FILTER_VALIDATE_EMAIL);
+	}
+	
+	/** 
+		Check unique email
+		@param string	email		Check email
+		@return boolean		True if email is unique
+	*/
+	static public function uniqueEmail($email) {
+		
 	}
 	
 	// Setters & Getters

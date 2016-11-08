@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<index xmlns="http://xml.phpdox.net/src" basedir="D:/xampp/htdocs/SportReport/LikeMySkills/framework">
-  <namespace name="">
-    
-    
-    
-  <class name="Content" src="classes/Content.class.php" description="A content is a piece of content that is shared on the website." xml="classes/Content.xml"/><class name="User" src="classes/User.class.php" description="An user is an object that can do actions on the application" xml="classes/User.xml"/><class name="Database" src="database/database.fw.php" description="Database connection" xml="classes/Database.xml"/></namespace>
-</index>

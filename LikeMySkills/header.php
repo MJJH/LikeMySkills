@@ -10,24 +10,10 @@
 	<header>
 		<nav>
 			<ul>
-				<li><a href="index.php">Home</a></li>
-				<li><a href="#">Preferences</a></li>
-				<li><a href="#">Login</a></li>
+				<li><a href="index.php">%Home%</a></li>
+				<li><a href="index.php?page=signup">%Register%</a></li>
+				<li><a href="login">%Login%</a></li>
 			</ul>
 		</nav>
 	</header>
-	<?php 
-		if(count($_error) > 0) {
-			?>
-				<div id="error">
-					<?php 
-						foreach($_error as $e) { 
-							echo $e . "<br>";
-						}
-					?>
-				</div>
-			<?php
-		}
-	?>
-	
 	<content>

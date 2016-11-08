@@ -1,18 +1,51 @@
-<?php
-/** 
-	Database connection
-*/
+<?php namespace Essentials;
+/**
+ *  Database Class
+ *  
+ *  Handles connection and all input.
+ *  Uses prepared statements to secure all data
+ *  
+ *  @author Martijn Vriens
+ *  
+ *  @version 0.1
+ *  
+ *  @copyright 2016
+ *  
+ *  @package Essentials
+ */
 	class Database {
 		
 		// Database info
+		/**
+		 *  IP or URL to connect to
+		 *  
+		 *  @var	string
+		 */
 		protected $host;
-		protected $port;
+		/**
+		 *  Username of the connecting user
+		 *  
+		 *  @var	string	$username
+		 */
 		protected $username;
+		/**
+		 *  Password of the connecting user
+		 *  @var	string	@password
+		 */
 		protected $password;
-		
+		/**
+		 *  Database name for this connection
+		 *  @var	string	$database
+		 */
 		protected $database;
 		
-		// Connection
+		/**
+		 *  Mysqli Object connection
+		 *  
+		 *  @link http://php.net/manual/en/book.mysqli.php
+		 *  
+		 *  @var	mysqli	$mysqli
+		 */
 		protected $mysqli;
 		
 		function __construct() {

@@ -1,5 +1,5 @@
 <?php
-	$_string["title"] = "webpage";
+	$_prep["title"] = "Home";
 ?>
 
 <div class="container">

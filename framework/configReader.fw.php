@@ -4,7 +4,7 @@
 
 function read($path, $config = array()) {
 	// Open file
-	$file = file("../framework/" . $path);
+	$file = file($path . ".config");
 	
 	// Read all lines 
 	foreach($file as $line_num => $line) {

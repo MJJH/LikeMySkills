@@ -1,4 +1,4 @@
-<?php namespace Essentials;
+<?php
 /**
  *  The overview php file. 
  *  Include this file to start working with the framework.
@@ -28,29 +28,31 @@
 
 // Include all framework files
 include 'configReader.fw.php';
-include 'lang/language.fw.php';
 include 'database/database.fw.php';
 
 // Get all classes
 include_once 'classes/Content.class.php';
 include_once 'classes/User.class.php';
+include_once 'classes/Util.class.php';
+include_once 'classes/Page.class.php';
+
 
 // Set globals
 /**
  *  @var array<string, mixed> $_settings Global settings variable, containing all setting keys with values.
  */
-$_settings = read('settings.config');
+//$_settings = read('settings.config');
 /**
  *  Contains all queries, stored in one place to use in 
  *  @see /classes/Database
  *  
  *  @var array<string, string> $_queries
  */
-$_queries = read('database/queries.config');
+/*$_queries = read('database/queries.config');
 $_prep = read('lang/' . getLan() . '.config');
 $_prep["lan"] = getLan();
 $_database = new Database();
-$_error = array();
+$_error = array();*/
 
 // HTML features
 /**
@@ -70,14 +72,17 @@ $_error = array();
  *  
  *  @return string	Created html code for given bb code and text
  */
-function bb($code, $text) {
+/*function bb($code, $text) {
 	global $_settings;
+	
+		// todo: ESCAPE %..%[%]
+	
 	$allowed = explode(",", $_settings["allowedBB"]);
 	
 	if(in_array( $code, $allowed )) {
 		return "<" . $code . ">" . $text . "</" . $code . ">";
 	}
-}
+}*/
 
 /**
  *  Prepares a piece of HTML with needed string inputs.
@@ -92,7 +97,7 @@ function bb($code, $text) {
  *  
  *  @return string	Prepared html
  */
-function prepare($html) {
+/*function prepare($html) {
 	// Insert text %%
 	preg_match_all('/%(.*)%/U', $html, $output);
 	if($output)
@@ -118,7 +123,7 @@ function prepare($html) {
  *  
  *  @return string	Escaped HTML, ready to be placed on a webpage
  */
-function escape($content) {
+/*function escape($content) {
 	// Remove all html
 	$content = htmlentities($content);
 	
@@ -137,4 +142,4 @@ function escape($content) {
 		}
 		
 	return $content;
-}
+}*/

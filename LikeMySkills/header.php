@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>%title% - LikeMySkills</title>
+	<title>$%title%</title>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="css/style.css">
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	$%stylesheets%
 </head>
 <body>
 	<header>
+		$%navigation%
+	
 		<nav>
 			<ul>
-				<li><a href="index.php">%Home%</a></li>
-				<li><a href="index.php?page=signup">%Register%</a></li>
-				<li><a href="login">%Login%</a></li>
+				<li>$%link%index,home%</li>
+				<li>$%link%signUp,register%</li>
+				<li>$%link%logIn,login%</li>
 			</ul>
 		</nav>
 	</header>
+	$%errors%
 	<content>

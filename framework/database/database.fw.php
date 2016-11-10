@@ -48,14 +48,13 @@
 		 */
 		protected $mysqli;
 		
-		function __construct() {
-			global $_settings;
+		function __construct($util) {
 			// Get information from settings
-			$this->host 	= $_settings["dbHost"] 		?: "localhost";
-			$this->username = $_settings["dbUsername"] 	?: "root";
-			$this->password = $_settings["dbPassword"] 	?: "";
+			$this->host 	= $util->getSetting("dbHost") 		?: "localhost";
+			$this->username = $util->getSetting("dbUsername") 	?: "root";
+			$this->password = $util->getSetting("dbPassword") 	?: "";
 			
-			$this->database = $_settings["dbName"]		?: "database";
+			$this->database = $util->getSetting("dbName")		?: "database";
 			
 			// Connect
 			$this->mysqli = mysqli_connect($this->host, $this->username, $this->password, $this->database);

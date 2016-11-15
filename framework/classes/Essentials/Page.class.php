@@ -16,18 +16,16 @@ abstract class Page {
 	protected $header;
 	protected $footer;
 	
-	protected $util;
-	
 	protected $close = array();
 	
 	
-	function __construct($util, $template, $title, $header = true, $footer = true, $permissions = array()) {
-		$this->templatePath = __DIR__ . "/../../{$util->getSetting("dirName")}/pages/templates/{$template}.php";
+	function __construct($template, $title, $header = true, $footer = true, $permissions = array()) {
+		global $util;
+		$this->templatePath = __DIR__ . "/../../../{$util->getSetting("dirName")}/pages/templates/{$template}.php";
 		$this->title = $title;
 		$this->permissions = $permissions;
 		$this->header = $header;
 		$this->footer = $footer;
-		$this->util = $util;
 
 		$this->addStylesheet("css/style.css");
 		$this->addStylesheet("https://fonts.googleapis.com/css?family=Open+Sans");
@@ -80,26 +78,11 @@ abstract class Page {
 	}
 	
 	protected function getLink($args) {
-		if($this->util->pageExist($args[0]))
-			return "<a href=\"{$_SERVER['PHP_SELF']}?page={$args[0]}\">{$this->util->getString($args[1])}</a>";
+		global $util;
+		if($util->pageExist($args[0]))
+			return "<a href=\"{$_SERVER['PHP_SELF']}?page={$args[0]}\">{$util->getString($args[1])}</a>";
 		else
-			return "<strike>{$this->util->getString($args[1])}</strike> \n";
-	}
-	
-	protected function getForm($args) {
-		$this->close[] = "form";
-		return "<form method=\"post\" action=\"index.php?page={$args[0]}\"> \n";
-	}
-	
-	protected function getInput($args) {
-		$field 	= count($args) >= 1 ? $args[0] : "input";
-		$type 	= count($args) >= 2 ? $args[1] : "text";
-		$name 	= count($args) >= 3 ? $this->util->getString($args[2]) : $field;
-		$label 	= count($args) >= 4 ? $args[3] : true;
-
-		return "<div class=\"inputCombo\">\n".
-			($label===true ? "<label for=\"{$field}\">{$name}</label> \n" : "").
-			"<input ".($type==="submit"?"value=\"{$name}\" " : "")."type=\"{$type}\" name=\"{$name}\" /></div>";
+			return "<strike>{$util->getString($args[1])}</strike> \n";
 	}
 	
 	protected function prepare($html) {
@@ -126,7 +109,8 @@ abstract class Page {
 							);
 							
 						} else {
-							return $this->util->getString($output[2][$index]);
+							global $util;
+							return $util->getString($output[2][$index]);
 						} 
 					}, 
 					$html

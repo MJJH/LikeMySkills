@@ -31,10 +31,15 @@ include 'configReader.fw.php';
 include 'database/database.fw.php';
 
 // Get all classes
-include_once 'classes/Content.class.php';
-include_once 'classes/User.class.php';
-include_once 'classes/Util.class.php';
-include_once 'classes/Page.class.php';
+function classLoader($class) {
+    $classes = stream_resolve_include_path("classes/{$class}.class.php");
+	$addons = stream_resolve_include_path("{$class}.class.php");
+	
+	if($classes !== false) include $classes;
+	elseif($addons !== false) include $addons;
+}
+
+spl_autoload_register('classLoader');
 
 
 // Set globals

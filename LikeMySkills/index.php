@@ -1,10 +1,11 @@
 <?php
 	session_start();
-	
 	// Include framework
 	include '../framework/utils.inc.php';
+	global $util;	
+	$util = new \Essentials\Util();
+	$util->createPage(isSet($_GET["page"]) ?  $_GET["page"] : "index");
 
-	$util = new \Essentials\Util(isSet($_GET["page"]) ?  $_GET["page"] : "index");
 	
 	// Get content
 	if(!empty($util->getPage())) {

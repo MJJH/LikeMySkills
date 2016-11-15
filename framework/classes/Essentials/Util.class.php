@@ -13,17 +13,15 @@ class Util {
 	private $page;
 	
 	
-	function __construct($page) {
-		$this->settings = read(__DIR__ . "/../" . "settings");
-		$this->queries = read(__DIR__ . "/../" . "database/queries");
-		$this->pages = read(__DIR__ . "/../../{$this->getSetting("dirName")}/pages/pages");
+	function __construct() {
+		$this->settings = read(__DIR__ . "/../../" . "settings");
+		$this->queries = read(__DIR__ . "/../../" . "database/queries");
+		$this->pages = read(__DIR__ . "/../../../{$this->getSetting("dirName")}/pages/pages");
 		
 		$this->language = $this->getLanguage();
 		$this->user = $this->getLoggedIn();
 		
 		$this->database = new Database($this); 
-	
-		$this->createPage($page);
 	}
 	
 	private function getLoggedIn() {
@@ -45,27 +43,27 @@ class Util {
 			$lan = $_GET['lan'];
 		}
 		
-		return read(__DIR__ . "/../../{$this->getSetting("dirName")}/lang/{$lan}");
+		return read(__DIR__ . "/../../../{$this->getSetting("dirName")}/lang/{$lan}");
 	}
 	
 	public function lanExists($lan) {
-		return preg_match('/^[a-z]{2}$/', $lan) && file_exists(__DIR__ . "/../../{$this->getSetting("dirName")}/lang/{$lan} ". '.config');
+		return preg_match('/^[a-z]{2}$/', $lan) && file_exists(__DIR__ . "/../../../{$this->getSetting("dirName")}/lang/{$lan} ". '.config');
 	}
 	
 	function checkPermission($task) {
 		
 	}
 	
-	private function createPage($page) {
+	public function createPage($page) {
 		if(!array_key_exists($page, $this->pages))
 			return;
 		
-		$path = __DIR__ . "/../../{$this->getSetting("dirName")}/pages/{$this->pages[$page]}.class.php";
+		$path = __DIR__ . "/../../../{$this->getSetting("dirName")}/pages/{$this->pages[$page]}.class.php";
 		if( $path && file_exists($path)) {
 			include_once $path;
 			
 		$class = "\Essentials\pages\\" . $this->pages[$page];
-		$this->page = new $class($this);
+		$this->page = new $class();
 		}
 	}
 	

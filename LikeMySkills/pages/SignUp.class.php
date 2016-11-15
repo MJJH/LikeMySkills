@@ -1,8 +1,24 @@
 <?php namespace Essentials\pages;
 
+use \Addons\Form\Form;
+use \Addons\Form\TextInput;
+use \Addons\Form\Password;
+use \Addons\Form\EmailInput;
+use \Addons\Form\Submit;
+
 class SignUp extends \Essentials\Page {
-	function __construct($util) {
-		parent::__construct($util, "signup", "Home");
+	
+	private $form;
+	
+	function __construct() {
+		parent::__construct("signup", "Home");
+		
+		$this->form = new Form($_SERVER['PHP_SELF'] . "?page=signUp", "signup", "post", null, array("autocomplete" => "off"));
+		
+		$this->form->addChild(new TextInput("username", "formUsername", true, true, false, true, 55, 3));
+		$this->form->addChild(new Password("password", "formPassword"));
+		$this->form->addChild(new EmailInput("email", "formEmail", true, true, false, true));
+		$this->form->addChild(new Submit("formSubmit"));
 	}
 	
 	protected function onLoad() {
@@ -10,20 +26,12 @@ class SignUp extends \Essentials\Page {
 	}
 	
 	protected function onPost() {
-		if (!isset($_POST["username"]) || empty($_POST["username"])){
-				$emptyform = true;
-				$this->util->addError($this->util->getString("EmptyUsername"));
+		if($this->form->validate()) {
+			die("<h3> Account Creating, valid! </h3> <hr> <b> Username: </b> {$_POST['username']} <br> <b> Password: </b> {$_POST['password']} <br> <b> Email: </b> {$_POST['email']} <br> ");
 		}
-		if (!isset($_POST["password"]) || empty($_POST["password"])){
-				$emptyform = true;
-				$this->util->addError($this->util->getString("EmptyPassword"));
-		}
-		if (!isset($_POST["email"]) || empty($_POST["email"])){
-				$emptyform = true;
-				$this->util->addError($this->util->getString("EmptyEmail"));
-		}
-		if ($emptyform = false){
-			User::register($_POST["username"],$_POST["password"],$_POST["email"]);
-		}
+	}
+	
+	public function getForm() {
+		return $this->form->createForm();
 	}
 }

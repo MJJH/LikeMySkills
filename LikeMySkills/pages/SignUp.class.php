@@ -15,7 +15,7 @@ class SignUp extends \Essentials\Page {
 		
 		$this->form = new Form($_SERVER['PHP_SELF'] . "?page=signUp", "signup", "post", null, array("autocomplete" => "off"));
 		
-		$this->form->addChild(new TextInput("username", "formUsername", true, true, false, true, 55, 3));
+		$this->form->addChild(new TextInput("username", "formUsername", true, true, false, true, 30, 4, "/^[a-zA-Z0-9._-]*$/"));
 		$this->form->addChild(new Password("password", "formPassword"));
 		$this->form->addChild(new EmailInput("email", "formEmail", true, true, false, true));
 		$this->form->addChild(new Submit("formSubmit"));
@@ -27,7 +27,17 @@ class SignUp extends \Essentials\Page {
 	
 	protected function onPost() {
 		if($this->form->validate()) {
-			die("<h3> Account Creating, valid! </h3> <hr> <b> Username: </b> {$_POST['username']} <br> <b> Password: </b> {$_POST['password']} <br> <b> Email: </b> {$_POST['email']} <br> ");
+			// Validate user
+			$uu = !\Application\User::uniqueUsername($_POST['username']);
+			$ue = !\Application\User::uniqueEmail($_POST['email']);
+			
+			if($uu || $ue) {
+				if($uu) $this->form->getInput("username")->addError("uniqueUsername");
+				if($ue) $this->form->getInput("email")->addError("uniqueEmail");
+			} else {
+				\Application\User::register($_POST['username'], $_POST['password'], $_POST['email']);
+				header('location: index.php?page=signUpSuccess');
+			}
 		}
 	}
 	

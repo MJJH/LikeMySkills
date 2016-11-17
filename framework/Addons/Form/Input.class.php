@@ -46,7 +46,7 @@ abstract class Input {
 		$errors = $errorHolder["open"];
 		foreach($this->errors as $error) {
 			$htmlError = HTMLHandler::createHTML("span", array("class" => "formError"));
-			$errors .= $htmlError["open"] . $util->getString($error) . $htmlError["close"];
+			$errors .= $htmlError["open"] . $util->getString("{$error}_{$this->name}") . $htmlError["close"];
 		}
 		$errors .= $errorHolder["close"];
 
@@ -73,5 +73,13 @@ abstract class Input {
 	
 	public function getErrors() {
 		return $this->errors;
+	}
+	
+	public function addError($error) {
+		$this->errors[] = $error;
+	}
+	
+	public function getName() {
+		return $this->name;
 	}
 }

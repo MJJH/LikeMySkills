@@ -1,4 +1,4 @@
-<?php
+<?php namespace Application;
 
 /**
 	A content is a piece of content that is shared on the website.

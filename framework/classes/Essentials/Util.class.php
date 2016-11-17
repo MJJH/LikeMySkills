@@ -19,12 +19,16 @@ class Util {
 		$this->pages = read(__DIR__ . "/../../../{$this->getSetting("dirName")}/pages/pages");
 		
 		$this->language = $this->getLanguage();
-		$this->user = $this->getLoggedIn();
+		$this->user = $this->logIn();
 		
 		$this->database = new Database($this); 
 	}
 	
-	private function getLoggedIn() {
+	public function getLoggedIn() {
+		return $this->user ?: false;
+	}
+	
+	private function logIn() {
 		
 	}
 	
@@ -130,5 +134,9 @@ class Util {
 	
 	public function addError($error) {
 		$this->error[] = $error;
+	}
+	
+	public function getDatabase() {
+		return $this->database;
 	}
 }

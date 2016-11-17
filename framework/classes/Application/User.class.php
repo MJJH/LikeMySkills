@@ -1,4 +1,4 @@
-<?php
+<?php namespace Application;
 /**
 	An user is an object that can do actions on the application
 */
@@ -55,12 +55,10 @@ class User {
 		* @param string		$email			Email adress of the user, to send information
 	*/
 	static public function register($username, $password, $email) {
-		global $_queries;
-		global $_database;
-		
+		global $util;
 		// Validate input
-		if(User::validateUsername($username) && User::validateEmail($email) && User::validatePassword($password)) {
-			$_database->doQuery($_queries["adduser"], "sss", array(&$username, &$password, &$email));
+		if(User::validateUsername($username) && User::validateEmail($email) && User::validatePassword($password) && User::uniqueUsername($username) && User::uniqueEmail($email)) {
+			$util->getDatabase()->doQuery($util->getQuery("adduser"), "sss", array(&$username, &$password, &$email));
 		}
 	}
 	
@@ -108,7 +106,11 @@ class User {
 		@return boolean		True if email is unique
 	*/
 	static public function uniqueUsername($username) {
+		global $util;
 		
+		$output = $util->getDatabase()->getQuery($util->getQuery("uniqueName"), "s", array(&$username));
+		
+		return $output['name'] <= 0;
 	}
 	
 	/**
@@ -135,7 +137,10 @@ class User {
 		@return boolean		True if email is unique
 	*/
 	static public function uniqueEmail($email) {
+		global $util;
 		
+		$output = $util->getDatabase()->getQuery($util->getQuery("uniqueEmail"), "s", array(&$email));
+		return $output['mail'] <= 0;
 	}
 	
 	// Setters & Getters

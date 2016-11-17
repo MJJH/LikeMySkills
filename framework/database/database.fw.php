@@ -132,11 +132,10 @@
 			Returns array object
 		*/
 		function getQuery($query, $types, $params) {
-			$rows;
+			$rows = array();
 			
 			// Check if connection is open
 			if($this->mysqli->ping()) {
-				
 				// Prepare query
 				if($stmt = $this->mysqli->prepare($query)) {
 					
@@ -144,13 +143,14 @@
 					call_user_func_array(array($stmt, "bind_param"), array_merge(array(&$types), $params));
 					
 					$stmt->execute();
+					$result = $stmt->get_result();
 					
-					$rows = $stmt->fetch_array(MYSQLI_ASSOC);
+					$rows = $result->fetch_array(MYSQLI_ASSOC);
 					
 					$stmt->close();
 				}
 			}
 			
-			return $rows ?: array();
+			return $rows;
 		}
 	}

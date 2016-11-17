@@ -13,7 +13,7 @@ function read($path, $config = array()) {
 			continue;
 		
 		// Read config items key=value
-		$config_line = preg_split("/\s* *= *\s*/", $line);
+		$config_line = preg_split("/\s* *= *\s*/", $line, 2);
 		
 		// If not a valid item, skip
 		if(count($config_line) !== 2) 

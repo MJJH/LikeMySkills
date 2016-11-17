@@ -47,6 +47,13 @@ class Form {
 		return $html;
 	}
 	
+	public function getInput($name) {
+		foreach($this->children as $child) {
+			if($child instanceof Input && $child->getName() === $name)
+				return $child;
+		}
+	}
+	
 	private function setAction($action) {
 		$this->action = $action;
 		$this->attributes["action"] = $action;

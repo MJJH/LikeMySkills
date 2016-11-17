@@ -46,6 +46,11 @@ class User {
 		else $this->permissions = array();
 	}
 	
+	static public function getCookieHash($username) {
+		$date = date('l jS \of F Y h:i:s A');
+		return crypt($username."-".$date, '$6$rounds=5000$'.$util->getSetting("cookieHash").'$');
+	}
+	
 	/**
 		* Register a user in the database
 		*
@@ -58,7 +63,9 @@ class User {
 		global $util;
 		// Validate input
 		if(User::validateUsername($username) && User::validateEmail($email) && User::validatePassword($password) && User::uniqueUsername($username) && User::uniqueEmail($email)) {
-			$util->getDatabase()->doQuery($util->getQuery("adduser"), "sss", array(&$username, &$password, &$email));
+			$encryptedPass = User::encryptPassword($password);
+			
+			$util->getDatabase()->doQuery($util->getQuery("adduser"), "sss", array(&$username, &$encryptedPass, &$email));
 		}
 	}
 	
@@ -88,7 +95,7 @@ class User {
 		@return encrypted password string
 	*/
 	static private function encryptPassword($password) {
-		return md5($password);
+		return crypt($password, '$6$rounds=5000$'.$util->getSetting("loginHash").'$');
 	}
 	
 	/**

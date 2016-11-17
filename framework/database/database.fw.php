@@ -132,6 +132,25 @@
 			Returns array object
 		*/
 		function getQuery($query, $types, $params) {
+			$rows;
 			
+			// Check if connection is open
+			if($this->mysqli->ping()) {
+				
+				// Prepare query
+				if($stmt = $this->mysqli->prepare($query)) {
+					
+					// Bind params
+					call_user_func_array(array($stmt, "bind_param"), array_merge(array(&$types), $params));
+					
+					$stmt->execute();
+					
+					$rows = $stmt->fetch_array(MYSQLI_ASSOC);
+					
+					$stmt->close();
+				}
+			}
+			
+			return $rows ?: array();
 		}
 	}

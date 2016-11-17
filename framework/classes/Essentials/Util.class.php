@@ -31,7 +31,7 @@ class Util {
 	private function getLanguage() {
 		$lan = $this->settings["deflan"];
 		
-		if(isSet($_COOKIE['lan']) && !empty($_COOKIE['lan']) && lanExists($_COOKIE['lan'])) {
+		if(isSet($_COOKIE['lan']) && !empty($_COOKIE['lan']) && $this->lanExists($_COOKIE['lan'])) {
 			$lan = $_COOKIE['lan'];
 		}
 		

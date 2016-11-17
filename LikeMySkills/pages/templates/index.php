@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="css/style.css">
-<script src="js/vendor/modernizr-2.6.2.min.js"></script>
-
 <div class="container">
 
 	<div id="loader-wrapper">
@@ -12,10 +9,21 @@
 
  	</div>
 
-	<b>%back%</b>
+	<h3> Test 1: </h3>
+	<ul>
+	$%for:test{
+		<li> 
+			<i>$%i%.</i> <b>$%naam%</b> doet $%richting%
+		</li>
+	}%
+	</ul>
+	<hr>
+	<h3> Test 2: </h3>
+	
+	$%for:test{
+		<div class="__$%i%">
+			$%naam% : $%richting%
+		</div>
+	}%
 	
 </div>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-<script src="js/loader.js"></script>

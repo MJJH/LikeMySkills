@@ -27,8 +27,10 @@ abstract class Page {
 		$this->header = $header;
 		$this->footer = $footer;
 
+		// Default stylesheets
 		$this->addStylesheet("css/style.css");
 		$this->addStylesheet("https://fonts.googleapis.com/css?family=Open+Sans");
+		$this->addScript("js/vendor/jquery-1.9.1.min.js");
 
 	}
 	
@@ -73,40 +75,44 @@ abstract class Page {
 		}
 	}
 	
-	protected function getNavigation() {
-		
-	}
-	
 	protected function getLink($args) {
 		global $util;
 		if($util->pageExist($args[0]))
 			return "<a href=\"{$_SERVER['PHP_SELF']}?page={$args[0]}\">{$util->getString($args[1])}</a>";
 		else
-			return "<strike>{$util->getString($args[1])}</strike> \n";
+			return "<strike>{$util->getString($args[1])}</strike>";
 	}
 	
 	protected function prepare($html) {
-		preg_match_all('/([$])?%(.*)(=?%(\S*)|)%/U', $html, $output);
+		preg_match_all('~([$])?%(.*)(=?:(.*)|)(=?{(.*)}|)%~Ums', $html, $output);
 		if($output)
-			foreach($output[0] as $index => $found) {
-				$html = preg_replace_callback(
-					'/'. ($found[0]==="$" ? "\\".$found : $found) . '/', 
+			foreach($output[0] as $index => $found) {		
+				$html = preg_replace_callback("~".preg_quote($found)."~", 
 					function($m) use ($output, $index) { 
 						if($output[1][$index] === "$") {
-							
-						if($output[2][$index] === "!") {
-							if(count($this->close) > 0)
-								
-								return "</".end($this->close).">";
-							else
-								return "";
-						}
-								
-								
-							$func = "get".ucfirst($output[2][$index]);
-							return $this->$func(
-								!empty($output[4][$index]) ? explode(",", $output[4][$index]) : null
-							);
+							if(strtolower($output[2][$index]) === "for") {
+								try {
+									if(!empty($output[4][$index])) {
+										$array = "get".ucfirst($output[4][$index]);
+										if(is_array($this->$array())) {
+											return $this->forloop($this->$array(), $output[6][$index]);
+										} else {
+											return $this->$array();
+										}
+									}
+								} catch(Exception $e) {
+									return "For loop not working";
+								}
+							} else {
+								$func = "get".ucfirst($output[2][$index]);
+								try {
+									return $this->$func(
+										!empty($output[6][$index]) ? explode(",", $output[6][$index]) : null
+									);
+								} catch(Exception $e) {
+									return "Method <b>{$func}</b> not found";
+								}
+							}
 							
 						} else {
 							global $util;
@@ -118,6 +124,27 @@ abstract class Page {
 			}
 			
 		return $html;
+	}
+	
+	public function forloop($array, $snippet) {
+		$html = "";
+		foreach($array as $key => $value) {
+			$create = preg_replace_callback("~[$]%(\w*)%~U", 
+			function($m) use ($array, $snippet, $key, $value) {
+				
+				if($m[1] === "i") return $key;
+				
+				$func = "get".ucfirst($m[1]);
+				try {
+					return $value->$func();
+				} catch (Exception $e) {
+					return $m[1];
+				}
+			},
+			$snippet);
+			$html.= $create;
+		}
+		return $this->prepare($html);
 	}
 	
 	public function getPageContent() {
@@ -143,6 +170,7 @@ abstract class Page {
 		if(isSet($_POST) && !empty($_POST)) {
 			$this->onPost();
 		}
+		
 		return $this->prepare($this->unPrepared);
 	}
 	

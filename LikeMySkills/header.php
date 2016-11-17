@@ -7,13 +7,11 @@
 </head>
 <body>
 	<header>
-		$%navigation%
-	
 		<nav>
 			<ul>
-				<li>$%link%index,home%</li>
-				<li>$%link%signUp,register%</li>
-				<li>$%link%logIn,login%</li>
+				<li>$%link{index,home}%</li>
+				<li>$%link{signUp,register}%</li>
+				<li>$%link{logIn,login}%</li>
 			</ul>
 		</nav>
 	</header>

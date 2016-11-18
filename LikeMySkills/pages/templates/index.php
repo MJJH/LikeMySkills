@@ -8,7 +8,7 @@
         <div class="loader-section section-right"></div>
 
  	</div>
-
+	
 	<h3> Test 1: </h3>
 	<ul>
 	$%for:test{

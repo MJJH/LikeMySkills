@@ -9,9 +9,7 @@
 	<header>
 		<nav>
 			<ul>
-				<li>$%link{index,home}%</li>
-				<li>$%link{signUp,register}%</li>
-				<li>$%link{logIn,login}%</li>
+				$%navigation%
 			</ul>
 		</nav>
 	</header>

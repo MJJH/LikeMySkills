@@ -31,7 +31,6 @@ abstract class Page {
 		$this->addStylesheet("css/style.css");
 		$this->addStylesheet("https://fonts.googleapis.com/css?family=Open+Sans");
 		$this->addScript("js/vendor/jquery-1.9.1.min.js");
-
 	}
 	
 	protected function addStylesheet($uri) {
@@ -57,11 +56,37 @@ abstract class Page {
 	}
 	
 	protected function getScripts() {
+		$ret = "";
 		if(is_array($this->scripts)) {
 			foreach($this->scripts as $uri) {
-				echo "<script src=\"{$uri}\"></script> \n";
+				$ret .= "<script src=\"{$uri}\"></script> \n";
 			}
 		}
+		return $ret;
+	}
+	
+	protected function getNavigation() {
+		global $util;
+		$nav = array();
+		
+		$nav[] = $this->getLink(array("index", "home"));
+		
+		// Not logged in
+		if(!$util->getLoggedIn()) {
+			$nav[] = $this->getLink(array("signUp", "register"));
+			$nav[] = $this->getLink(array("logIn", "login"));
+		} else {
+			$nav[] = $this->getLink(array("account", $util->getLoggedIn()->getUserName()));
+		
+			if($util->getLoggedIn()->hasPermission("write")) {
+				$nav[] = $this->getLink(array("write", "write"));
+			}
+		}
+		$html = "";
+		foreach($nav as $link)
+			$html.= "<li>{$link}</li>";
+			
+		return $html;
 	}
 	
 	protected function getErrors() {
@@ -176,6 +201,12 @@ abstract class Page {
 	
 	public function getTitle() {
 		return $this->title . " ~ LikeMySkills";
+	}
+	
+	public function getUserName() {
+		global $util;
+		
+		return $util->getLoggedIn()->getUserName() ?: "unknown";
 	}
 	
 	protected function onLoad() {

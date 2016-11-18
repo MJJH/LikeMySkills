@@ -26,24 +26,21 @@ class User {
 		* @param string		$role			name of the role this user has
 		* @param string[]	$permissions	array of all allowed permissions for this user
 	*/
-	public function __construct($id, $username, $email, $role, $permissions) {
+	public function __construct($id, $username, $email, $role = "default", $permissions = array()) {
 		$this->id = $id;
 		
-		if(!empty($username) && isSet($username) && $this->validateUsername($username))
-			$this->username = $username;
-		else return;
+		$this->username = $username;
 		
-		if(!empty($email) && isSet($email) && $this->validateEmail($email))
-			$this->email = $email;
-		else return;
+		$this->email = $email;
 		
-		if(!empty($role) && isSet($role))
-			$this->role = $role;
-		else $this->role = "user";
+		global $util;
+		$this->role = ($role === "default" ? $util->getSetting("defaultRole") : $role);
 		
-		if(!empty($permissions) && isSet($permissions) && is_array($permissions))
-			$this->permissions = $permissions;
-		else $this->permissions = array();
+		$this->permissions = $permissions;
+	}
+	
+	public function hasPermission($permission) {
+		return in_array($permission, $this->permissions);
 	}
 	
 	static public function getCookieHash($username) {
@@ -74,8 +71,13 @@ class User {
 		* @param integer 	$id			Identifier to search in database
 		* @return User		 			user by this id or false
 	*/
-	static public function loadUser($id) {
+	static public function loadUser($util, $id) {
+		$userRow = $util->getDatabase()->getQuery($util->getQuery("loadUser"), "i", array(&$id));
 		
+		if($userRow) {
+			return new User($userRow['userid'], $userRow['username'], $userRow['email'], $userRow['role'], $util->getPermissions($userRow['role']));
+		}
+		return null;
 	}
 	
 	/**
@@ -159,5 +161,9 @@ class User {
 	*/
 	public function getId() {
 		return $this->id;
+	}
+	
+	public function getUsername() {
+		return $this->username;
 	}
 }

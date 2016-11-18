@@ -8,7 +8,7 @@ class Util {
 	private $pages = array();
 	
 	private $database;
-	private $user;
+	private $loginData;
 	
 	private $page;
 	
@@ -18,18 +18,41 @@ class Util {
 		$this->queries = read(__DIR__ . "/../../" . "database/queries");
 		$this->pages = read(__DIR__ . "/../../../{$this->getSetting("dirName")}/pages/pages");
 		
+		$this->database = new Database($this); 
+		
 		$this->language = $this->getLanguage();
 		$this->user = $this->logIn();
-		
-		$this->database = new Database($this); 
 	}
 	
 	public function getLoggedIn() {
-		return $this->user ?: false;
+		if(!empty($this->user) && !empty($this->user['userObject']))
+			return $this->user['userObject'];
+		return null;
 	}
 	
 	private function logIn() {
-		
+		if(isSet($_COOKIE['userLogin']) && !empty($_COOKIE['userLogin'])) {
+			$cookie = $_COOKIE['userLogin'];
+			$userAgent = $_SERVER['HTTP_USER_AGENT'];
+			
+			$users = $this->database->getQuery($this->getQuery("findCookie"), "ss", array(&$cookie, &$userAgent));
+
+			// User found
+			if($users) {
+				return array(
+					'device' => $userAgent,
+					
+					'createIP' => $users['ip'],
+					'currentIP' => $_SERVER['REMOTE_ADDR'],
+					
+					'createDate' => $users['date'],
+					'loadDate' => date("F j, Y \a\t g:ia"),
+					
+					'userObject' => \Application\User::loadUser($this, $users['userid']),
+					'userId' => $users['userid']
+				);
+			}
+		}
 	}
 	
 	private function getLanguage() {
@@ -52,10 +75,6 @@ class Util {
 	
 	public function lanExists($lan) {
 		return preg_match('/^[a-z]{2}$/', $lan) && file_exists(__DIR__ . "/../../../{$this->getSetting("dirName")}/lang/{$lan} ". '.config');
-	}
-	
-	function checkPermission($task) {
-		
 	}
 	
 	public function createPage($page) {
@@ -100,6 +119,22 @@ class Util {
 			}
 			
 		return $content;
+	}
+	
+	function getPermissions($role) {
+		$permissions = $this->database->getQuery($this->getQuery("loadPermission"), "s", array(&$role));
+		
+		$retPerm = array();
+		if($permissions) {
+			foreach($permissions as $key => $value) {
+				if($key == "role") continue;
+
+				if($value == 1)
+					$retPerm[] = $key;
+			}
+		}
+		
+		return $retPerm;
 	}
 	
 	function getSetting($key) {

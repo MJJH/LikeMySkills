@@ -40,7 +40,6 @@ abstract class Input {
 		$binder = HTMLHandler::createHTML("div", array("class" => "inputBinder"));
 		$input = HTMLHandler::createHTML("input", $this->attributes);
 		$label = HTMLHandler::createHTML("label", array("class" => "formLabel input_{$this->name}", "for" => $this->name));
-		$div = HTMLHandler::createHTML("div", array("class" => "labelDiv"));
 		
 		$errorHolder = HTMLHandler::createHTML("div", array("class" => "formErrorHolder"));
 		
@@ -53,7 +52,7 @@ abstract class Input {
 
 		return  $binder["open"] . 
 				(count($this->errors) > 0 ? $errors : "") .
-				($this->label ? $div["open"] . $label["open"] . $util->getString($this->text) . "\n" . $label["close"] . $div["close"] : "") .
+				($this->label ? $label["open"] . $util->getString($this->text) . "\n" . $label["close"] : "") .
 				$input["noContent"] .
 				$binder["close"];
 	}

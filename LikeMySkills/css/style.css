@@ -105,6 +105,10 @@ footer {
 	background-color: #fff;
 	border-top: 1px solid #dbdbdb;
 	border-bottom: 1px solid #dbdbdb;
+	width: 100%;
+	position: fixed;
+	left: 0;
+	bottom: 0;
 }
 
 footer p {
@@ -152,7 +156,7 @@ button {
     z-index: 1000;
 }
 
-#loader {
+.loader {
     display: block;
     position: relative;
     left: 50%;

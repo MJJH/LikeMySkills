@@ -130,15 +130,25 @@ input[type="submit"] {
     box-shadow: 1px 1px 1px #7bca66;
 }
 
+input[type="submit"]:hover {
+    background-color: #7bca66;
+    box-shadow: 1px 1px 1px #7bca66;
+}
+
+form {
+    text-align: center;
+}
+
 label {
     display: block;
-    margin: 10px auto;
+    margin: 15px auto;
 }
 
 input[type="text"], input[type="password"], input[type="email"] {
 	padding: 10px;
-	width: 300px;
+	width: 350px;
     font-size: 15px;
+    text-align: center;
 }
 
 button {

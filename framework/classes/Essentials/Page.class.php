@@ -1,24 +1,37 @@
 <?php namespace Essentials;
 
+use \Addons\HTMLHandler\HTMLHandler as HTML;
+/**
+ *  Page is an abstract class that allows users of the framework to add and render webpages.
+ *  Contains default methods to load from normal syntax
+ */
 abstract class Page {
-	
+	/** @var string $title Title to be shown on page */
 	protected $title;
 	
+	/** @var array $scripts All script url's intern and extern to be loaded on specific page */
 	protected $scripts = array();
+	/** @var array $styles All style url's intern and extern to be loaded on specific page */
 	protected $styles = array();
 	
+	/** @var array $permissions Permissions needed to load this page */
 	protected $permissions;
 	
+	/** @var string $unPrepared Unprepared HTML. All content without being rendered for this Page */
 	protected $unPrepared;
+	/** @var string $prepared Prepared HTML version of $unPrepared. */
 	protected $prepared;
+	/** @var string $templatePath Path to template loaded in this Page */
 	protected $templatePath;
 	
+	/** @var boolean $header If the header should be loaded on this Page */
 	protected $header;
+	/** @var boolean $footer If the footer should be loaded on this Page */
 	protected $footer;
 	
-	protected $close = array();
-	
-	
+	/**
+	 *  Initialize abstract Page
+	 */
 	function __construct($template, $title, $header = true, $footer = true, $permissions = array()) {
 		global $util;
 		$this->templatePath = __DIR__ . "/../../../{$util->getSetting("dirName")}/pages/templates/{$template}.php";
@@ -31,6 +44,7 @@ abstract class Page {
 		$this->addStylesheet("css/style.css");
 		$this->addStylesheet("https://fonts.googleapis.com/css?family=Open+Sans");
 		$this->addScript("js/vendor/jquery-1.9.1.min.js");
+		$this->addScript("js/page.js");
 	}
 	
 	protected function addStylesheet($uri) {
@@ -207,6 +221,30 @@ abstract class Page {
 		global $util;
 		
 		return $util->getLoggedIn()->getUserName() ?: "unknown";
+	}
+	
+	public function getLanSelect() {
+		global $util;
+		
+		$toggle = HTML::createHTML("a", array("id"=>"lanSelect"));
+		$divHolder = HTML::createHTML("div", array("id"=>"lanHolder", "class"=>"closed"));
+		
+		$languages = glob(__DIR__."/../../../{$util->getSetting("dirName")}/lang/*.{config}", GLOB_BRACE);
+		ksort($languages);
+		
+		$html = $toggle["open"] . $util->getString("lan") . $toggle["close"];
+		
+		$html.= $divHolder["open"];
+		
+		foreach($languages as $lang) {
+			$lang = basename($lang, ".config");
+			$languageLink = HTML::createHTML("a", array("class"=>"lanSelector", "href"=>"?lan={$lang}"));
+			$html.= $languageLink["open"] . strtoupper($lang) . $languageLink["close"];
+		}
+		
+		$html.= $divHolder["close"];
+	
+		return $html;
 	}
 	
 	protected function onLoad() {

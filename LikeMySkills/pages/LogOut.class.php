@@ -7,8 +7,15 @@ class LogOut extends \Essentials\Page {
 	}
 	
 	protected function onLoad() {
-		setcookie("userLogin", "", time()-3600);
-		// TODO remove cookie from database
+		global $util;
+		
+		$cookie = $_COOKIE['userLogin'];
+		
+		if(!empty($cookie)) {
+			setcookie("userLogin", "", time()-3600);
+			$util->getDatabase()->doQuery($util->getQuery("removeCookie"), "s", array(&$cookie));
+		}
+		
 		header("location: {$_SERVER['PHP_SELF']}");
 	}
 }

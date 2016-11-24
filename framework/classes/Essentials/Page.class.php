@@ -31,6 +31,7 @@ abstract class Page {
 		$this->addStylesheet("css/style.css");
 		$this->addStylesheet("https://fonts.googleapis.com/css?family=Open+Sans");
 		$this->addScript("js/vendor/jquery-1.9.1.min.js");
+		$this->addScript("https://use.fontawesome.com/57c3f7ef0f.js");
 	}
 	
 	protected function addStylesheet($uri) {

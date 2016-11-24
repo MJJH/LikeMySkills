@@ -92,6 +92,10 @@ class User {
 	static public function signInUser($username, $password) {
 		global $util;
 		
+		// Add row to loginattempt table
+		$device = $_SERVER['HTTP_USER_AGENT'];
+		$ip = ip2long($util->getIp());
+		$users = $util->getDatabase()->doQuery($util->getQuery("addLoginAttempt"), "ssi", array(&$username, &$device, &$ip));
 		// Check if login
 		if(User::validateUsername($username)) {
 			$encryptedPass = User::encryptPassword($password);
@@ -100,8 +104,6 @@ class User {
 		
 			if($users) {
 				$cookie = User::getCookieHash($username);
-				$device = $_SERVER['HTTP_USER_AGENT'];
-				$ip = ip2long($_SERVER['REMOTE_ADDR']);
 				$id = $users['userid'];
 				$util->getDatabase()->doQuery($util->getQuery("addCookie"), "ssis", array(&$id, &$device, &$ip, &$cookie));
 				setcookie("userLogin", $cookie);

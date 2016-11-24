@@ -25,8 +25,9 @@ class LogIn extends \Essentials\Page {
 	}
 	
 	protected function onPost() {
+		global $util;
 		if($this->form->validate()) {
-			die("<h3> Login attempt, valid! </h3> <hr> <b> Username: </b> {$_POST['username']} <br> <b> Password: </b> {$_POST['password']} <br> ");
+			\Application\User::signInUser($_POST['username'], $_POST['password']);
 		}
 	}
 	

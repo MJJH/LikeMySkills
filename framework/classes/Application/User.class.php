@@ -44,6 +44,8 @@ class User {
 	}
 	
 	static public function getCookieHash($username) {
+		global $util;
+		
 		$date = date('l jS \of F Y h:i:s A');
 		return crypt($username."-".$date, '$6$rounds=5000$'.$util->getSetting("cookieHash").'$');
 	}
@@ -88,7 +90,25 @@ class User {
 		* @return User or false
 	*/
 	static public function signInUser($username, $password) {
+		global $util;
 		
+		// Check if login
+		if(User::validateUsername($username)) {
+			$encryptedPass = User::encryptPassword($password);
+			
+			$users = $util->getDatabase()->getQuery($util->getQuery("findUser"), "ss", array(&$username, &$encryptedPass));
+		
+			if($users) {
+				$cookie = User::getCookieHash($username);
+				$device = $_SERVER['HTTP_USER_AGENT'];
+				$ip = ip2long($_SERVER['REMOTE_ADDR']);
+				$id = $users['userid'];
+				$util->getDatabase()->doQuery($util->getQuery("addCookie"), "ssis", array(&$id, &$device, &$ip, &$cookie));
+				setcookie("userLogin", $cookie);
+			} else {
+				$util->addError("noLogin");
+			}
+		}
 	}
 	
 	/**
@@ -97,6 +117,7 @@ class User {
 		@return encrypted password string
 	*/
 	static private function encryptPassword($password) {
+		global $util;
 		return crypt($password, '$6$rounds=5000$'.$util->getSetting("loginHash").'$');
 	}
 	

@@ -32,8 +32,10 @@ include 'database/database.fw.php';
 
 // Get all classes
 function classLoader($class) {
-    $classes = stream_resolve_include_path("classes/{$class}.class.php");
-	$addons = stream_resolve_include_path("{$class}.class.php");
+	$class = str_replace('\\' , "/", $class);
+    $classes = stream_resolve_include_path("classes/".$class.".class.php");
+	
+	$addons = stream_resolve_include_path($class.".class.php");
 	
 	if($classes !== false) include $classes;
 	elseif($addons !== false) include $addons;

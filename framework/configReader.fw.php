@@ -3,6 +3,7 @@
 */
 
 function read($path, $config = array()) {
+	$path = str_replace('\\' , "/", $path);
 	// Open file
 	$file = file($path . ".config");
 	

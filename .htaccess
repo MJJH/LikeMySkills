@@ -1,4 +1,0 @@
-RewriteEngine On
-
-RewriteRule ^css/([^/]*)$ LikeMySkills/css/$1
-RewriteRule ^([^/]*)$ LikeMySkills/index.php?page=$1

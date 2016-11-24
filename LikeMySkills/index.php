@@ -2,6 +2,7 @@
 	session_start();
 	// Include framework
 	include '../framework/utils.inc.php';
+	// include '../framework/classes/essentials/Util.class.php';
 	global $util;	
 	$util = new \Essentials\Util();
 	$util->createPage(isSet($_GET["page"]) ?  $_GET["page"] : "index");

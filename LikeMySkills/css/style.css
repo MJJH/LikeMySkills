@@ -1,8 +1,13 @@
+
 @font-face {
     font-family: 'Chunkfive';
-    src: url(../fonts/Chunkfive/Chunkfive.otf);
-}
+    src: url('../fonts/ChunkFive/chunkfive-webfont.woff2') format('woff2'),
+         url('../fonts/ChunkFive/chunkfive-webfont.woff') format('woff'),
+         url('../fonts/ChunkFive/Chunkfive.otf') format('otf');
+    font-weight: normal;
+    font-style: normal;
 
+}
 html, body {
 	margin: 0 auto;
 }

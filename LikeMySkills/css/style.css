@@ -38,7 +38,7 @@ h6 {
     color: white;
 }
 
-p, ul, li {
+p, ul, li, label {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 100%;
 	line-height: 190%;
@@ -97,6 +97,10 @@ nav li a:active {
 }
 
 footer {
+	width: 100%;
+	position: fixed;
+	left: 0;
+	bottom: 0;
 	height: 90px;
 	background-color: #fff;
 	border-top: 1px solid #dbdbdb;
@@ -107,6 +111,28 @@ footer p {
 	padding: 20px 100px;
 	text-align: center;
 	font-size: 14px;
+}
+
+input[type="submit"] {
+    margin-top: 20px;
+    padding: 10px 30px;
+    background-color: #7bca66;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 1px 1px 1px #7bca66;
+}
+
+input {
+	padding: 5px;
+	width: 200px;
+}
+
+button {
+	padding: 10px;
 }
 
 /* Loader */

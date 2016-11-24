@@ -27,7 +27,7 @@ class TextInput extends Input {
 			return false;
 		}
 		
-		if(strlen($value) <= $this->minLength || strlen($value) >= $this->maxLength) {
+		if(strlen($value) < $this->minLength || strlen($value) > $this->maxLength) {
 			$this->errors[] = "formStringLength";
 			return false;
 		}

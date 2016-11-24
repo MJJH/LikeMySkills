@@ -7,6 +7,7 @@
 </head>
 <body>
 	<header>
+		<a href="index.php"><h1>Sport Report</h1></a>
 		<nav>
 			<ul>
 				$%navigation%

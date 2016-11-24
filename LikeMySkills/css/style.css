@@ -139,8 +139,8 @@ label {
 }
 
 input[type="text"], input[type="password"], input[type="email"] {
-	padding: 10px 0;
-	width: 100%;
+	padding: 10px 2.5%;
+	width: 95%;
     font-size: 15px;
 }
 

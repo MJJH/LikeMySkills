@@ -17,7 +17,7 @@ class LogIn extends \Essentials\Page {
 		
 		$this->form->addChild(new TextInput("username", "formUsername", true, true, false, true, 55, 3));
 		$this->form->addChild(new Password("password", "formPassword"));
-		$this->form->addChild(new Submit("formSubmit"));
+		$this->form->addChild(new Submit("submitLogin"));
 	}
 	
 	protected function onLoad() {

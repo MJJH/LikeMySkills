@@ -28,6 +28,7 @@ class LogIn extends \Essentials\Page {
 		global $util;
 		if($this->form->validate()) {
 			\Application\User::signInUser($_POST['username'], $_POST['password']);
+			header("location: {$_SERVER['PHP_SELF']}");
 		}
 	}
 	

@@ -15,8 +15,16 @@ h1, h2, h3, h4, h5, {
 	font-family: 'Open Sans', sans-serif;
 }
 
-h6 {
+h1 {
+	margin-top: 0;
+	font-family: 'Chunkfive';
+	font-size: 40px;
+	color: #7bca66 !important;
+	text-align: center;
+	text-transform: uppercase;
+}
 
+h6 {
 	font-family: 'Chunkfive';
     font-size: 8vw;
     font-weight: normal;
@@ -28,10 +36,9 @@ h6 {
     padding: 0;
     margin: 0;
     color: white;
-
 }
 
-p {
+p, ul, li {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 100%;
 	line-height: 190%;
@@ -39,15 +46,17 @@ p {
 
 a {
 	color: #444;
+	text-decoration: none;
 }
 
 a:hover {
 	color: #000;
+	text-decoration: none;
 }
 
 header {
 	height: 100px;
-	padding: 0 100px;
+	padding: 30px 100px 50px;
 	background-color: #fff;
 	border-bottom: 1px solid #dbdbdb;
 }
@@ -70,7 +79,7 @@ ul {
 
 nav li {
 	display: inline-block;
-	padding: 35px;
+	padding: 10px 35px 0;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 16px;
 	text-transform: uppercase;
@@ -85,7 +94,6 @@ nav li a {
 nav li a:hover,
 nav li a:active {
 	color: #444;
-	border-bottom: 1px solid #444;
 }
 
 footer {
@@ -97,9 +105,11 @@ footer {
 
 footer p {
 	padding: 20px 100px;
+	text-align: center;
+	font-size: 14px;
 }
 
-/*Loader*/
+/* Loader */
 
 #loader-wrapper {
     position: fixed;
@@ -111,7 +121,6 @@ footer p {
 }
 
 #loader {
-
     display: block;
     position: relative;
     left: 50%;
@@ -124,43 +133,39 @@ footer p {
     background-repeat: no-repeat;
 
     -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
-    animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+    		animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
 
     z-index: 1001;
-
 }
 
 .loader-text {
-
     display: block;
     position: relative;
-
 	z-index: 1002;
-
 }
 
     @-webkit-keyframes spin {
         0%   { 
             -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
-            -ms-transform: rotate(0deg);  /* IE 9 */
-            transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+				-ms-transform: rotate(0deg);  /* IE 9 */
+           			transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
         }
         100% {
             -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
-            -ms-transform: rotate(360deg);  /* IE 9 */
-            transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+	            -ms-transform: rotate(360deg);  /* IE 9 */
+	            	transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
         }
     }
     @keyframes spin {
         0%   { 
             -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
-            -ms-transform: rotate(0deg);  /* IE 9 */
-            transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+		        -ms-transform: rotate(0deg);  /* IE 9 */
+		            transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
         }
         100% {
             -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
-            -ms-transform: rotate(360deg);  /* IE 9 */
-            transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+            	-ms-transform: rotate(360deg);  /* IE 9 */
+            		transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
         }
     }
 
@@ -172,8 +177,8 @@ footer p {
         background: #7bca66;
         z-index: 1000;
         -webkit-transform: translateX(0);  /* Chrome, Opera 15+, Safari 3.1+ */
-        -ms-transform: translateX(0);  /* IE 9 */
-        transform: translateX(0);  /* Firefox 16+, IE 10+, Opera */
+        	-ms-transform: translateX(0);  /* IE 9 */
+        		transform: translateX(0);  /* Firefox 16+, IE 10+, Opera */
     }
 
     #loader-wrapper .loader-section.section-left {
@@ -185,6 +190,7 @@ footer p {
     }
 
     /* Loaded */
+
     .loaded #loader-wrapper .loader-section.section-left {
         -webkit-transform: translateX(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
             -ms-transform: translateX(-100%);  /* IE 9 */
@@ -199,8 +205,8 @@ footer p {
             -ms-transform: translateX(100%);  /* IE 9 */
                 transform: translateX(100%);  /* Firefox 16+, IE 10+, Opera */
 
--webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);  
-        transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+		-webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);  
+        		transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
     }
   
   	    .loaded #loader-wrapper .loader-text {
@@ -227,6 +233,7 @@ footer p {
     }
     
     /* JavaScript Turned Off */
+
     .no-js #loader-wrapper {
         display: none;
     }

@@ -217,7 +217,10 @@ abstract class Page {
 	}
 	
 	public function getTitle() {
-		return $this->title . " ~ LikeMySkills";
+		String lng = "en";
+		Locale loc = new Locale(lng);
+		String name = loc.getDisplayLanguage(loc); // English
+		return $this->title . " ~ LikeMySkills - {$name}";
 	}
 	
 	public function getUserName() {

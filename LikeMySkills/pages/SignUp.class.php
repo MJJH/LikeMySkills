@@ -15,7 +15,7 @@ class SignUp extends \Essentials\Page {
 		
 		$this->form = new Form($_SERVER['PHP_SELF'] . "?page=signUp", "signup", "post", null, array("autocomplete" => "off"));
 		
-		$this->form->addChild(new TextInput("username", "formUsername", true, true, false, true, 30, 4, "/^[a-zA-Z0-9._-]*$/"));
+		$this->form->addChild(new TextInput("username", "formUsername", true, true, false, true, 30, 3, "/^[a-zA-Z0-9._-]*$/"));
 		$this->form->addChild(new Password("password", "formPassword"));
 		$this->form->addChild(new EmailInput("email", "formEmail", true, true, false, true));
 		$this->form->addChild(new Submit("submitSignUp"));

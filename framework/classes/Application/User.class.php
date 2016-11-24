@@ -127,7 +127,7 @@ class User {
 		@return boolean		True if valid username
 	*/
 	static public function validateUsername($username) {
-		return preg_match("/^[a-zA-Z0-9._-]{4,30}$/", $username);
+		return preg_match("/^[a-zA-Z0-9._-]{3,30}$/", $username);
 	}
 	
 	/**

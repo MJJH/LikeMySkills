@@ -87,6 +87,8 @@ CREATE TABLE sr_media(
     content integer not null,
     type integer not null,
     path text,
+	size bigint,
+	extension varchar(255),
     
     constraint pk_sr_media
     PRIMARY KEY (mediaid),

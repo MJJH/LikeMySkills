@@ -1,6 +1,8 @@
 /*
 	DATABASE CREATE - likeMySkills FRAMEWORK
 */
+drop table if exists sr_media
+drop table if exists sr_mediatype
 drop table if exists sr_follow;
 drop table if exists sr_content;
 drop table if exists sr_user;
@@ -69,4 +71,35 @@ create table sr_follow(
 	constraint fk_sr_follow_authorid
 	foreign key (authorid)
 	references sr_user(userid)
+);
+
+CREATE TABLE sr_mediatype(
+    typeid integer AUTO_INCREMENT,
+    name varchar(255) not null,
+    
+    constraint pk_sr_mediatype
+    PRIMARY KEY (typeid)
+);
+
+CREATE TABLE sr_media(
+    mediaid integer AUTO_INCREMENT,
+    uploader integer not null,
+    content integer not null,
+    type integer not null,
+    path text,
+    
+    constraint pk_sr_media
+    PRIMARY KEY (mediaid),
+    
+    constraint fk_sr_media_user
+    FOREIGN KEY (uploader)
+    REFERENCES sr_user(userid),
+    
+    CONSTRAINT fk_sr_media_mediatype
+    FOREIGN KEY (type)
+    REFERENCES sr_mediatype(typeid),
+    
+    CONSTRAINT fk_sr_media_content
+    foreign key (content)
+    REFERENCES sr_content(contentid)
 );

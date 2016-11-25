@@ -16,3 +16,4 @@
 	</header>
 	$%errors%
 	<content>
+	<div class="container">

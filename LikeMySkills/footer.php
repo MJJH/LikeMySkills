@@ -1,4 +1,5 @@
 </content>
+</div>
 	$%scripts%
 	<footer>
 		<div class="footer-container">

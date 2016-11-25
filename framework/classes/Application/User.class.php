@@ -74,12 +74,13 @@ class User {
 		* @return User		 			user by this id or false
 	*/
 	static public function loadUser($util, $id) {
+	//global $util;
+		
 		$userRow = $util->getDatabase()->getQuery($util->getQuery("loadUser"), "i", array(&$id));
 		
 		if($userRow) {
 			return new User($userRow['userid'], $userRow['username'], $userRow['email'], $userRow['role'], $util->getPermissions($userRow['role']));
 		}
-		return null;
 	}
 	
 	/**

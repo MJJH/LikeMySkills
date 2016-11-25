@@ -9,9 +9,9 @@ class LogOut extends \Essentials\Page {
 	protected function onLoad() {
 		global $util;
 		
-		$cookie = $_COOKIE['userLogin'];
+		if (isset($_COOKIE['userLogin']) && !empty($_COOKIE['userLogin'])) {
 		
-		if(!empty($cookie)) {
+			$cookie = $_COOKIE['userLogin'];
 			setcookie("userLogin", "", time()-3600);
 			$util->getDatabase()->doQuery($util->getQuery("removeCookie"), "s", array(&$cookie));
 		}

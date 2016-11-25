@@ -36,6 +36,7 @@ class SignUp extends \Essentials\Page {
 				if($ue) $this->form->getInput("email")->addError("uniqueEmail");
 			} else {
 				\Application\User::register($_POST['username'], $_POST['password'], $_POST['email']);
+				
 				header('location: index.php?page=signUpSuccess');
 			}
 		}

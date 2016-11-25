@@ -21,15 +21,13 @@ class Content {
 	/** * @var Timestamp 	Timestamp of creation of this Content */
 	private $date;
 	
-	/** 
-	* The type of this content. [text, video, pictures or sound]
-	* @var string 
-	*/
-	private $type;
 	// The title
 	private $title;
-	// The content, is a string (either a text or a path)
 	private $content;
+	//
+	private $media;
+	
+	private $likes;
 	
 	/**
 		* Constructor for a content
@@ -38,18 +36,14 @@ class Content {
 		* @param content	content of this content
 		* @param date		timestamp object when object was send
 	*/
-	public function __construct($id, $author, $title, $content, $type, $date = null) {
+	public function __construct($id, $author, $title, $content, $media = array(), $likes = array(), $date = null) {
 		$this->id = $id;
 		$this->title = $title;
-		$this->type = $type;
-		
-		if(!empty($author) && isSet($author))
-			$this->author = $author;
-		else return;
-		
-		if(!empty($content) && isSet($content) && $this->validateContent($content, $type))
-			$this->content = $content;
-		else return;
+		$this->author = $author;
+		$this->title = $title;
+		$this->content = $content;
+		$this->media = $media;
+		$this->likes = $likes;
 		
 		if(empty($date) || !isSet($date))
 			$this->date = date('Y-m-d H:i:s');
@@ -69,11 +63,18 @@ class Content {
 		* @global Database $_database
 	*/
 	public function upload() {
-		global $_queries;
-		global $_database;
+		global $util;
 		
 		$authorId = $this->author->getId();
-		$_database->doQuery($_queries['addcontent'], 'ssssi', array(&$this->type, &$this->title, &$this->date, &$this->content, &$authorId));
+		$util->getDatabase()->doQuery($util->getQuery('addcontent'), 'sssi', array(&$this->title, &$this->date, &$this->content, &$authorId));
+		
+		foreach($this->media as $media) {
+			$media->upload();
+		}
+	}
+	
+	public function addMedia($media) {
+		$this->media[] = $media;
 	}
 	
 	/**
@@ -90,7 +91,31 @@ class Content {
 	* @return Content return the found content object or false
 	*/
 	public static function loadContent($id) {
+		global $util;
 		
+		$content = $util->getDatabase()->getQuery($util->getQuery("loadContent"), "i", array(&$id));
+		
+		if($content) {
+			$contentObject = new Content($content["contentid"], User::loadUser($content["author"]), $content["title"], $content["content"], Media::loadByContent($id), Content::loadContentLikes($id), $content['date']);
+		}
+	}
+	
+	public static function loadContentLikes($id) {
+		global $util;
+		
+		$likes = array();
+		
+		$_likes = $util->getDatabase()->getQuery($util->getQuery("loadLikes"), "i", array(&$id));
+		
+		if($_likes) {
+			if(count($_likes) > 1) {
+				foreach($_likes as $like) {
+					$likes[] = User::LoadUser($like['userid']);
+				}
+			} else {
+				$likes[] = User::loadUser($_likes['userid']);
+			}
+		}
 	}
 	
 	/**

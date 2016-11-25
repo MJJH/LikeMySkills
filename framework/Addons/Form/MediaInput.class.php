@@ -34,7 +34,7 @@ class MediaInput extends Input {
 	}
 	
 	public function validate() {
-		
+		return true;
 	}
 	
 	public function getFile() {

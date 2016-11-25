@@ -2,7 +2,7 @@
 
 class Index extends \Essentials\Page {
 	
-	private $testArray;
+	private $feed;
 	
 	function __construct() {
 		parent::__construct("index", "Home");
@@ -12,11 +12,11 @@ class Index extends \Essentials\Page {
 	}
 	
 	public function getTest() {
-		return $this->testArray;
+		return $this->feed;
 	}
 }
 
-class Test {
+class feed {
 	private $naam;
 	private $richting;
 	

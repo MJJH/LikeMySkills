@@ -2,7 +2,6 @@
 use \Addons\Form\Form;
 use \Addons\Form\TextInput;
 use \Addons\Form\Password;
-use \Addons\Form\EmailInput;
 use \Addons\Form\Submit;
 class AddContent extends \Essentials\Page {
 	
@@ -11,10 +10,10 @@ class AddContent extends \Essentials\Page {
 	function __construct() {
 		parent::__construct("addcontent", "Home");
 		
-		$this->form = new Form($_SERVER['PHP_SELF'] . "?page=AddContent", "addcontent", "post", null, array("autocomplete" => "off"));
+		$this->form = new Form($_SERVER['PHP_SELF'] . "?page=addContent", "addcontent", "post", null, array("autocomplete" => "off"));
 		
 		$this->form->addChild(new TextInput("title", "formTitle", true, true, false, true, 30, 3, "/^[a-zA-Z0-9._-]*$/"));
-		$this->form->addChild(new ContentInput("title", "formContent", true, true, false, true, 30, 3, "/^[a-zA-Z0-9._-]*$/"));
+		$this->form->addChild(new TextInput("title", "formContent", true, true, false, true, 30, 3, "/^[a-zA-Z0-9._-]*$/"));
 		$this->form->addChild(new Submit("submitAddContent"));
 	}
 	

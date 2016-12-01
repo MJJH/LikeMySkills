@@ -94,7 +94,7 @@ abstract class Page {
 			$nav[] = $this->getLink(array("account", $util->getLoggedIn()->getUserName()));
 		
 			if($util->getLoggedIn()->hasPermission("write")) {
-				$nav[] = $this->getLink(array("write", "write"));
+				$nav[] = $this->getLink(array("addContent", "addcontent"));
 			}
 			
 			$nav[] = $this->getLink(array("logOut", "logout"));

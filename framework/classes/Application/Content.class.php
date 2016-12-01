@@ -62,15 +62,13 @@ class Content {
 		* @global array $_queries
 		* @global Database $_database
 	*/
-	public function upload() {
+	static function upload($type, $title, $content, $author) {
 		global $util;
+		$util->getDatabase()->doQuery($util->getQuery('addContent'), 'sssi', array(&$type, &$title, &$content, &$author));
 		
-		$authorId = $this->author->getId();
-		$util->getDatabase()->doQuery($util->getQuery('addcontent'), 'sssi', array(&$this->title, &$this->date, &$this->content, &$authorId));
-		
-		foreach($this->media as $media) {
-			$media->upload();
-		}
+		//foreach($this->media as $media) {
+		//	$media->upload();
+		//}
 	}
 	
 	public function addMedia($media) {

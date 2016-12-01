@@ -4,11 +4,11 @@ use \Addons\HTMLHandler\HTMLHandler;
 
 abstract class Input {
 	protected $name;
-	private $type;
+	protected $type;
 	
-	private $label;
-	private $text;
-	private $required;
+	protected $label;
+	protected $text;
+	protected $required;
 	
 	protected $attributes;
 	

@@ -1,9 +1,10 @@
 <?php namespace Addons\Form;
 
-class TextInput extends TextInput {
+use \Addons\HTMLHandler\HTMLHandler;
+class Textarea extends TextInput {
+	public function createInput() {
 		global $util;
-		
-		$binder = HTMLHandler::createHTML("div", array("class" => "inputBinder"));
+		$binder = HTMLHandler::createHTML("div", array("class" => "textareaBinder"));
 		$textarea = HTMLHandler::createHTML("textarea", $this->attributes);
 		$label = HTMLHandler::createHTML("label", array("class" => "formLabel input_{$this->name}", "for" => $this->name));
 		
@@ -22,4 +23,5 @@ class TextInput extends TextInput {
 				$textarea["open"] .
 				$textarea["close"] .
 				$binder["close"];
+	}
 }

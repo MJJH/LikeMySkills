@@ -1,7 +1,7 @@
 <?php namespace Essentials\pages;
 use \Addons\Form\Form;
 use \Addons\Form\TextInput;
-use \Addons\Form\Password;
+use \Addons\Form\Textarea;
 use \Addons\Form\Submit;
 class AddContent extends \Essentials\Page {
 	
@@ -12,8 +12,8 @@ class AddContent extends \Essentials\Page {
 		
 		$this->form = new Form($_SERVER['PHP_SELF'] . "?page=addContent", "addcontent", "post", null, array("autocomplete" => "off"));
 		
-		$this->form->addChild(new TextInput("title", "formTitle", true, true, false, true, 30, 3, "/^[a-zA-Z0-9._-]*$/"));
-		$this->form->addChild(new TextInput("title", "formContent", true, true, false, true, 30, 3, "/^[a-zA-Z0-9._-]*$/"));
+		$this->form->addChild(new TextInput("title", "formTitle", true, true, false, true, 30, 3, false));
+		$this->form->addChild(new Textarea("content", "formContent", true, true, false, true, 1000, 3, false));
 		$this->form->addChild(new Submit("submitAddContent"));
 	}
 	
@@ -22,7 +22,13 @@ class AddContent extends \Essentials\Page {
 	}
 	
 	protected function onPost() {
+		global $util;
+		$userid = $util->getLoggedIn()->getId();
+
 		if($this->form->validate()) {
+			\Application\content::upload(NULL, $_POST['title'], $_POST['content'], $userid);
+			header('location: index.php?page=addContentSuccess');
+		}
 	}
 	
 	public function getForm() {

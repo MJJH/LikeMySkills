@@ -132,11 +132,16 @@ input[type="submit"]:hover {
     box-shadow: 1px 1px 1px #7bca66;
 }
 
+
 .inputBinder {
     margin: 0 auto;
     width: 400px;
 }
 
+.textareaBinder {
+    margin: 0 auto;
+    width: 400px;
+}
 label {
     display: block;
     margin: 15px auto;
@@ -148,6 +153,12 @@ input[type="text"], input[type="password"], input[type="email"] {
     font-size: 15px;
 }
 
+textarea {
+    padding: 10px 2.5%;
+    width: 95%;
+    min-height: 150px;
+    font-size: 15px;
+}
 /* Loader */
 
 #loader-wrapper {

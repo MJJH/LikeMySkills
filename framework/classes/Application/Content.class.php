@@ -66,9 +66,9 @@ class Content {
 		global $util;
 		$util->getDatabase()->doQuery($util->getQuery('addContent'), 'sssi', array(&$type, &$title, &$content, &$author));
 		
-		//foreach($this->media as $media) {
-		//	$media->upload();
-		//}
+		foreach($this->media as $media) {
+			$media->upload();
+		}
 	}
 	
 	public function addMedia($media) {
@@ -79,7 +79,9 @@ class Content {
 		Remove content from database
 	*/
 	public function delete() {
-		
+		foreach($this->media as $media) {
+			$media->delete();
+		}
 	}
 	
 	/**

@@ -65,7 +65,11 @@ class User {
 			$encryptedPass = User::encryptPassword($password);
 			
 			$util->getDatabase()->doQuery($util->getQuery("adduser"), "sss", array(&$username, &$encryptedPass, &$email));
+			
+			return true;
 		}
+		
+		return false;
 	}
 	
 	/**=

@@ -22,21 +22,23 @@ class MailHandler {
 	
 	public function send($to, $subject, $body) {
 		$headers = array(
-			'From' 		=> $this->email,
-			'To' 		=> $to,
-			'Subject' 	=> $subject,
+			'From' 			=> $this->email,
+			'To' 			=> $to,
+			'Subject' 		=> $subject,
+			'MIME-Version'	=> '1.0',
+			'Content-Type'  => 'text/html; charset=iso-8859-1; charset=UTF-8'
 		);
 		
 		$smtp = \Mail::factory('smtp', array(
-			'host' 		=> $this->host,
-			'port' 		=> $this->port,
-			'auth' 		=> true,
-			'username' 	=> $this->username,
-			'password' 	=> $this->password
+			'host' 			=> $this->host,
+			'port' 			=> $this->port,
+			'auth' 			=> true,
+			'username' 		=> $this->username,
+			'password' 		=> $this->password
 		));
 		
-		$mail = $smtp->send($to, $headers, $body);
+		$mail = $smtp->send($to, $headers, "<html><body>{$body}</body></html>");
 		
-		var_dump($mail);
+		return $mail;
 	}
 }

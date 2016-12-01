@@ -35,11 +35,25 @@ class SignUp extends \Essentials\Page {
 				if($uu) $this->form->getInput("username")->addError("uniqueUsername");
 				if($ue) $this->form->getInput("email")->addError("uniqueEmail");
 			} else {
-				\Application\User::register($_POST['username'], $_POST['password'], $_POST['email']);
-				
-				header('location: index.php?page=signUpSuccess');
+				if(\Application\User::register($_POST['username'], $_POST['password'], $_POST['email'])) {
+					$this->sendActivationMail($_POST['email'], $_POST['username'], "testtesttest");
+					header('location: index.php?page=signUpSuccess');
+				}
 			}
 		}
+	}
+	
+	private function sendActivationMail($to, $name, $activationCode) {
+		global $util;
+		$mailHandler = new \Addons\MailHandler\MailHandler();
+		
+		$activationString = $util->getString("activationMail");
+		$activationString = str_replace("%username%", $name, $activationString);
+		
+		$activationLink = \Addons\HTMLHandler\HTMLHandler::createHTML("a", array("href"=>$util->getSetting("path") . "?page=activation&code={$activationCode}"));
+		$activationString = str_replace("%activation%", "{$activationLink['open']} Sport Report {$activationLink['close']}", $activationString);
+		
+		$mailHandler->send($to, "Sport Report", $activationString);
 	}
 	
 	public function getForm() {

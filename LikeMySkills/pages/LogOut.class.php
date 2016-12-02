@@ -14,8 +14,9 @@ class LogOut extends \Essentials\Page {
 			$cookie = $_COOKIE['userLogin'];
 			setcookie("userLogin", "", time()-3600);
 			$util->getDatabase()->doQuery($util->getQuery("removeCookie"), "s", array(&$cookie));
+			$util->logOut();
 		}
 		
-		header("location: {$_SERVER['PHP_SELF']}");
+		return "index";
 	}
 }

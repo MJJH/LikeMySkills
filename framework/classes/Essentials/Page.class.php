@@ -190,6 +190,14 @@ abstract class Page {
 	}
 	
 	public function getPageContent() {
+		global $util;
+		
+		$resend = $this->onLoad();
+		if(!empty($resend)) {
+			$util->createPage($resend);
+			return $util->getPage()->getPageContent();
+		}
+		
 		ob_start();
 		
 		if($this->header)
@@ -207,10 +215,12 @@ abstract class Page {
 		
 		ob_end_clean();
 		
-		$this->onLoad();
-		
 		if(isSet($_POST) && !empty($_POST)) {
-			$this->onPost();
+			$resend = $this->onPost();
+			if($resend != null) {
+				$util->createPage($resend);
+				return $util->getPage()->getPageContent();
+			}
 		}
 		
 		return $this->prepare($this->unPrepared);

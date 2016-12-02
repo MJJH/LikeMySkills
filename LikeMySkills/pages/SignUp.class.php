@@ -35,9 +35,9 @@ class SignUp extends \Essentials\Page {
 				if($uu) $this->form->getInput("username")->addError("uniqueUsername");
 				if($ue) $this->form->getInput("email")->addError("uniqueEmail");
 			} else {
-				if(\Application\User::register($_POST['username'], $_POST['password'], $_POST['email'])) {
-					$this->sendActivationMail($_POST['email'], $_POST['username'], "testtesttest");
-					header('location: index.php?page=signUpSuccess');
+				if($code = \Application\User::register($_POST['username'], $_POST['password'], $_POST['email'])) {
+					$this->sendActivationMail($_POST['email'], $_POST['username'], $code);
+					return "signUpSuccess";
 				}
 			}
 		}

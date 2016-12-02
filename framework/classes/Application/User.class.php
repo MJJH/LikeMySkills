@@ -66,7 +66,15 @@ class User {
 			
 			$util->getDatabase()->doQuery($util->getQuery("adduser"), "sss", array(&$username, &$encryptedPass, &$email));
 			
-			return true;
+			$user = $util->getDatabase()->getQuery($util->getQuery("findUserId"), "s", array(&$username));
+			
+			if($user) {
+				$userid = $user["userid"];
+				$code = md5(User::getCookieHash($email));
+				$util->getDatabase()->doQuery($util->getQuery("addActivation"), "is", array(&$userid, &$code));
+			}
+			
+			return $code;
 		}
 		
 		return false;

@@ -22,7 +22,7 @@ class Util {
 	/** @var \Essentials\Database\Database The database connection used on the application */
 	private $database;
 	/** @var array|null Data about logged in user as \Application\User */
-	private $loginData;
+	private $user;
 	
 	/** @var \Essentials\Page Current page */
 	private $page;
@@ -85,6 +85,10 @@ class Util {
 			
 			return null;
 		}
+	}
+	
+	public function logOut() {
+		$this->user = null;
 	}
 	
 	/**
@@ -166,9 +170,10 @@ class Util {
 	 */
 	private function escape($content) {
 		// Remove all html
-		$content = htmlentities($content);
+		$content = htmlspecialchars($content);
 		
 		// escape %..% || $%..%
+		$content = str_replace("%", "&#37;", $content);
 		
 		// Get all opening tags []
 		preg_match_all('/\[(\w+)\]/U', $content, $output);

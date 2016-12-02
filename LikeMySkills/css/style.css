@@ -28,6 +28,14 @@ h1 {
 	text-transform: uppercase;
 }
 
+h5 {
+
+    color: #7bca66 !important;
+    font-size: 120%;
+    padding: 0;
+    margin-bottom: -15px;
+}
+
 h6 {
 	font-family: 'Chunkfive';
     font-size: 8vw;
